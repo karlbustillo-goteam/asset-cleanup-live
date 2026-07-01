@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GoTeam · Asset Clean-Up (Dual Mode) — Jun 24, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style id="theme-light">
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bd:#082F9C;--bm:#1560F6;--bs:#2D8FFF;--yw:#F8A515;
+  --tx:#23275A;--mu:#8B8FB2;--br:#E0E2F1;--bg:#F0F6FD;--cd:#fff;--rw:#F2F3FE;
+  --fn:"Poppins",-apple-system,sans-serif;--fb:"Inter",-apple-system,sans-serif;
+  --red:#E24B4A;--red-d:#A32D2D;--red-f:#FEF2F2;
+  --amb:#EF9F27;--amb-d:#854F0B;--amb-f:#FEF3C7;
+  --grn:#1D9E75;--vio:#534AB7;
+  --i60:#3D4F5E;--i40:#6B7E8E;
+}
+html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.topbar{background:#050C26;padding:0 28px;display:flex;align-items:center;justify-content:space-between;min-height:60px;border-bottom:3px solid var(--bm)}
+.topbar svg{height:26px;width:auto}
+.tr .tt{font-family:var(--fn);font-size:.78rem;font-weight:500;color:rgba(255,255,255,.8);text-align:right}
+.tr .td{font-size:.68rem;color:rgba(255,255,255,.38);text-align:right;margin-top:2px}
+
+
+
+
+
+
+
+
+
+
+
+.tabbar{background:var(--bd);padding:0 28px;display:flex;gap:2px;align-items:flex-end;overflow-x:auto}
+.tabbar::-webkit-scrollbar{height:3px}.tabbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18)}
+.tab{padding:10px 18px;font-size:.8rem;font-weight:600;font-family:var(--fn);color:rgba(255,255,255,.48);border:none;background:transparent;cursor:pointer;border-radius:7px 7px 0 0;transition:all .14s;white-space:nowrap;flex-shrink:0}
+.tab:hover{color:rgba(255,255,255,.82);background:rgba(255,255,255,.09)}
+.tab.active{color:var(--bd);background:#fff;font-weight:700}
+.pg{max-width:1160px;margin:0 auto;padding:20px 22px 56px}
+.pnl{display:none}.pnl.active{display:block;animation:fi .16s ease}
+@keyframes fi{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+.sh{display:flex;align-items:center;gap:9px;padding:10px 16px;border-radius:9px 9px 0 0}
+.sh h3{font-family:var(--fn);font-size:.82rem;font-weight:700;color:#fff}
+.sh .ct{background:rgba(255,255,255,.17);color:#fff;font-size:.66rem;font-family:var(--fn);font-weight:600;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.card{background:var(--cd);border-radius:9px;overflow:hidden;box-shadow:0 1px 4px rgba(8,47,156,.06),0 3px 12px rgba(8,47,156,.04);margin-bottom:16px}
+.cb{padding:14px 16px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:16px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.kpi{background:var(--cd);border-radius:9px;padding:14px 16px;border-top:4px solid var(--bm);box-shadow:0 1px 4px rgba(8,47,156,.06)}
+.kv{font-family:var(--fn);font-size:2rem;font-weight:700;color:var(--bd);line-height:1}
+.kl{font-size:.62rem;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.07em;margin:4px 0 2px}
+.ks{font-size:.7rem;color:var(--i60)}
+table.gt{width:100%;border-collapse:collapse;font-size:.75rem}
+table.gt th{background:var(--bd);color:#fff;font-family:var(--fn);font-weight:600;font-size:.66rem;letter-spacing:.04em;padding:7px 11px;text-align:left;white-space:nowrap}
+table.gt td{padding:5px 11px;color:var(--tx);border-bottom:1px solid var(--rw);vertical-align:middle}
+table.gt tbody tr:hover td{background:#EEF2FF}
+table.gt tbody tr:nth-child(even) td{background:var(--rw)}
+table.gt tbody tr:nth-child(even):hover td{background:#EEF2FF}
+.tbl-wrap{overflow-x:auto}
+.badge{display:inline-block;font-size:.62rem;font-weight:600;padding:2px 6px;border-radius:4px;white-space:nowrap}
+.b-red{background:#FEE2E2;color:#991B1B}.b-amb{background:#FEF3C7;color:#92400E}
+.b-blue{background:#DBEAFE;color:#1E40AF}.b-grn{background:#D1FAE5;color:#065F46}.b-gray{background:#F3F4F6;color:#374151}
+.strong{font-weight:600;color:var(--bd)}
+.meter-row,.mrow{display:flex;align-items:center;gap:7px;padding:3px 0}.meter-label,.mlbl{width:165px;font-size:.72rem;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}.meter-track,.mtrk{flex:1;height:5px;background:var(--br);border-radius:3px;min-width:30px}.meter-fill,.mfil{height:100%;border-radius:3px}.meter-val,.mval{width:100px;font-size:11px;text-align:right;color:var(--tx);white-space:nowrap}
+.mlbl{width:165px;font-size:.72rem;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}
+.mtrk{flex:1;height:5px;background:var(--br);border-radius:3px;min-width:30px}
+.mfil{height:100%;border-radius:3px}
+.mval{width:52px;text-align:right;font-size:.68rem;color:var(--mu);flex-shrink:0}
+.ch{position:relative}
+.fin-filter{display:inline-flex;align-items:center;padding:3px 11px;border-radius:20px;font-size:.7rem;font-weight:500;border:1.5px solid var(--br);cursor:pointer;background:#fff;color:var(--i60);gap:4px;font-family:var(--fn);transition:all .12s;white-space:nowrap}
+.fin-filter:hover{border-color:var(--bm);color:var(--bm)}
+.fin-filter.active{background:var(--bd);border-color:var(--bd);color:#fff;font-weight:600}
+.fin-stage-red{background:transparent;color:var(--red);border-color:var(--red)}
+.fin-stage-red:hover,.fin-stage-red.active{background:var(--red);color:#fff;border-color:var(--red)}
+.fin-stage-red.active{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--red);font-weight:700}
+.fin-stage-amb{background:transparent;color:var(--amb);border-color:var(--amb)}
+.fin-stage-amb:hover,.fin-stage-amb.active{background:var(--amb);color:#fff;border-color:var(--amb)}
+.fin-stage-amb.active{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--amb);font-weight:700}
+.fc{font-size:.68rem;opacity:.85}
+.frow{display:flex;align-items:center;gap:5px;margin-bottom:7px;flex-wrap:wrap}
+.flbl{font-size:.62rem;font-weight:700;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;min-width:64px}
+.st-chip{display:inline-block;padding:3px 10px;border-radius:6px;font-size:.72rem;font-weight:600;white-space:nowrap;cursor:default}
+.conf{background:#050C26;padding:18px 28px}
+.conf-inner{max-width:1160px;margin:0 auto}
+.ctitle{font-family:var(--fn);font-size:.66rem;font-weight:700;color:var(--bs);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.ctext{font-size:.7rem;color:rgba(255,255,255,.4);line-height:1.75;max-width:760px}
+footer{text-align:center;padding:10px;background:#050C26;border-top:1px solid #1a2240;font-size:.66rem;color:#3a4470}
+@media(max-width:880px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+  .topbar{padding:0 14px;min-height:52px}.topbar svg{height:21px}
+  .tabbar{padding:0 6px}
+  .tab{padding:8px 13px;font-size:.74rem}.pg{padding:12px 12px 48px}
+  .g4{grid-template-columns:repeat(2,1fr);gap:8px}.g3{grid-template-columns:1fr}.g2{grid-template-columns:1fr}
+  .kpi{padding:11px 13px}.kv{font-size:1.7rem}
+}
+@media(max-width:380px){.g4{grid-template-columns:1fr}}
+
+/* clean-up dashboard additions */
+.muted{color:var(--mu);font-size:.78rem;padding:8px 2px}
+.sub{font-size:.74rem;color:var(--i60);margin:2px 0 12px}
+/* table density + consistency */
+.tbl-wrap{overflow-x:auto;border-radius:8px}
+table.gt{font-size:.78rem;border-collapse:separate;border-spacing:0}
+table.gt th{padding:11px 16px;font-size:.66rem;letter-spacing:.05em;line-height:1.3;vertical-align:middle}
+table.gt td{padding:10px 16px;line-height:1.45;vertical-align:middle;border-bottom:1px solid #EEF1FB}
+table.gt th:first-child,table.gt td:first-child{padding-left:18px}
+table.gt th:last-child,table.gt td:last-child{padding-right:18px}
+table.gt td.num,table.gt th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.gt td.lbl{white-space:nowrap}
+table.gt td.notes{white-space:normal;min-width:210px;max-width:280px;color:var(--i60);font-size:.74rem;line-height:1.4}
+table.gt tbody tr:last-child td{border-bottom:none}
+.callo-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:16px}
+.callo{background:var(--cd);border-radius:9px;padding:13px 15px;box-shadow:0 1px 4px rgba(8,47,156,.06);border-left:4px solid var(--bm)}
+.co-top{font-size:.74rem;font-weight:700}
+.co-val{font-family:var(--fn);font-size:1.7rem;font-weight:700;color:var(--bd);line-height:1.05;margin-top:2px}
+.co-lbl{font-size:.66rem;color:var(--mu);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.co-wow{color:var(--bs);font-weight:700}
+.d-good{color:#1D9E75;font-weight:700}.d-bad{color:#E24B4A;font-weight:700}.d-flat{color:var(--mu);font-weight:600}
+table.gt tr.grp td{background:#EAF0FF !important;border-top:1px solid #d6e1ff}
+.gl-row{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--rw)}
+.gl-def{font-size:.76rem;color:var(--i60);line-height:1.45}
+.anrow{border-radius:9px;padding:12px 15px;margin-bottom:10px;background:var(--cd);box-shadow:0 1px 4px rgba(8,47,156,.05);border-left:4px solid var(--bm)}
+.an-basis{border-left-color:#534AB7;background:#F6F5FF}
+.an-warn{border-left-color:#E24B4A;background:#FEF5F5}
+.an-info{border-left-color:#1560F6}
+.an-h{font-family:var(--fn);font-weight:700;font-size:.82rem;color:var(--bd);margin-bottom:4px}
+.an-b{font-size:.79rem;color:var(--i60);line-height:1.55}
+.chart-card{background:var(--cd);border-radius:9px;box-shadow:0 1px 4px rgba(8,47,156,.06);padding:14px 16px;margin-bottom:16px}
+.search{width:100%;max-width:320px;padding:7px 11px;border:1.5px solid var(--br);border-radius:7px;font-size:.78rem;font-family:var(--fb);margin-bottom:10px}
+.search:focus{outline:none;border-color:var(--bm)}
+.topbar-right{display:flex;align-items:center;gap:18px}
+.theme-toggle{display:flex;align-items:center;gap:9px;background:none;border:none;cursor:pointer;font-family:var(--fn);font-size:.68rem;font-weight:600;letter-spacing:.06em;color:#fff}
+.tt-track{width:44px;height:22px;border-radius:99px;position:relative;flex-shrink:0;background:rgba(255,255,255,.28)}
+.tt-thumb{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .16s;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.tt-cap{white-space:nowrap}
+/* hover tooltips */
+[data-tip]{cursor:help}
+.tip-i{display:inline-block;width:13px;height:13px;line-height:13px;text-align:center;border-radius:50%;background:rgba(255,255,255,.28);color:#fff;font-size:.58rem;font-style:normal;font-weight:700;vertical-align:middle}
+.kl .tip-i{background:rgba(8,47,156,.14);color:var(--bd)}
+.tipbox{position:fixed;z-index:9999;max-width:290px;background:#050C26;color:#fff;font-family:var(--fb);font-size:.72rem;line-height:1.5;padding:9px 12px;border-radius:8px;box-shadow:0 8px 28px rgba(5,12,38,.4);pointer-events:none;opacity:0;transition:opacity .12s;border-left:3px solid var(--bs)}
+.tipbox.show{opacity:1}
+</style>
+<style id="theme-cyber">*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gt-dark-blue:#082F9C;--gt-blue:#1560F6;--gt-light-blue:#2D8FFF;
+  --gt-pink:#FF3386;--gt-green:#34D188;--gt-yellow:#F8A515;--gt-red:#FF6161;
+  --cd-canvas:#050C26;--cd-panel:#0A1535;--cd-panel-deep:#060E22;
+  --cd-glow-blue:rgba(45,143,255,.30);--cd-glow-pink:rgba(255,51,134,.40);
+  --txt:#C8D4F0;--mut:#404478;--lbl:#A6B0D8;--sub:#9AA4CE;--amber:#F8A515;
+  --line:rgba(21,96,246,.35);--grid:rgba(21,96,246,.06);
+  --fn:"Poppins",-apple-system,sans-serif;--fb:"Inter",-apple-system,sans-serif;
+  --mono:"Courier New",ui-monospace,monospace;
+}
+html,body{background:var(--cd-canvas);color:var(--txt);font-family:var(--fb);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  min-height:100vh;position:relative;
+}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.035) 2px,rgba(0,0,0,.035) 4px)}
+
+/* ---- top bar ---- */
+.topbar{background:linear-gradient(180deg,#070f2e,#050C26);padding:0 26px;display:flex;align-items:center;justify-content:space-between;min-height:58px;border-bottom:1px solid var(--gt-light-blue);box-shadow:0 0 18px rgba(45,143,255,.25);position:relative;z-index:2}
+.topbar svg{height:24px;width:auto;filter:drop-shadow(0 0 6px rgba(45,143,255,.5))}
+.topbar-right{display:flex;align-items:center;gap:18px}
+.theme-toggle{display:flex;align-items:center;gap:9px;background:none;border:none;cursor:pointer;font-family:var(--fn);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;text-shadow:0 0 8px rgba(255,51,134,.6)}
+.tt-track{width:44px;height:22px;border-radius:99px;position:relative;flex-shrink:0;background:linear-gradient(90deg,#FF3386,#1560F6);box-shadow:0 0 12px rgba(255,51,134,.5)}
+.tt-thumb{position:absolute;top:2px;left:24px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .16s;box-shadow:0 0 8px rgba(255,255,255,.7)}
+.tt-cap{white-space:nowrap}
+.tr{text-align:right}
+.tr .tt{font-family:var(--fn);font-size:.74rem;font-weight:600;color:var(--gt-light-blue);text-transform:uppercase;letter-spacing:.14em;text-shadow:0 0 8px rgba(45,143,255,.6)}
+.tr .td{font-family:var(--mono);font-size:.62rem;color:var(--amber);letter-spacing:.08em;margin-top:3px}
+
+/* ---- tabs ---- */
+.tabbar{background:var(--cd-panel-deep);padding:0 26px;display:flex;gap:4px;align-items:flex-end;overflow-x:auto;border-bottom:1px solid var(--line);position:relative;z-index:2}
+.tabbar::-webkit-scrollbar{height:3px}.tabbar::-webkit-scrollbar-thumb{background:rgba(45,143,255,.3)}
+.tab{padding:11px 18px;font-size:.72rem;font-weight:600;font-family:var(--fn);color:var(--lbl);border:none;background:transparent;cursor:pointer;text-transform:uppercase;letter-spacing:.12em;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.tab:hover{color:var(--txt)}
+.tab.active{color:#fff;border-bottom-color:var(--gt-light-blue);text-shadow:0 0 8px rgba(45,143,255,.7)}
+
+.pg{max-width:1180px;margin:0 auto;padding:22px 22px 60px;position:relative;z-index:2}
+.pnl{display:none}.pnl.active{display:block;animation:fi .22s ease}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+/* ---- section headers ---- */
+.sh{background:transparent!important;display:flex;align-items:center;gap:10px;padding:6px 2px 8px;margin-top:4px;border-bottom:1px solid var(--line)}
+.sh h3{font-family:var(--fn);font-size:.8rem;font-weight:600;color:var(--gt-light-blue);text-transform:uppercase;letter-spacing:.14em;text-shadow:0 0 6px rgba(45,143,255,.7),0 0 14px rgba(45,143,255,.3)}
+.sh .ct{background:rgba(45,143,255,.1);color:var(--gt-light-blue);font-family:var(--mono);font-size:.62rem;font-weight:600;padding:2px 9px;border-radius:3px;border:1px solid var(--line);letter-spacing:.06em;white-space:nowrap}
+
+/* ---- cards / panels ---- */
+.card,.chart-card{background:var(--cd-panel);border:1px solid var(--line);border-radius:6px;margin:12px 0 16px;transition:border-color .15s,box-shadow .15s}
+.card:hover,.chart-card:hover{border-color:var(--gt-light-blue);box-shadow:0 0 14px rgba(45,143,255,.18)}
+.cb{padding:15px 16px}
+.chart-card{padding:14px 16px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0 4px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:4px}
+
+/* ---- KPI cards ---- */
+.kpi{background:var(--cd-panel);border:1px solid var(--line);border-top-width:3px;border-radius:6px;padding:15px 16px;transition:border-color .15s,box-shadow .15s}
+.kpi:hover{box-shadow:0 0 16px rgba(45,143,255,.22);border-color:var(--gt-light-blue)}
+.kv{font-family:var(--fn);font-size:2.1rem;font-weight:700;color:#fff;line-height:1;text-shadow:0 0 10px rgba(200,212,240,.35)}
+.kl{font-size:.61rem;font-weight:600;color:var(--lbl);text-transform:uppercase;letter-spacing:.12em;margin:8px 0 3px}
+.ks{font-size:.69rem;color:var(--sub)}
+.kl .tip-i{background:rgba(45,143,255,.22);color:var(--gt-light-blue)}
+
+/* ---- tables ---- */
+.tbl-wrap{overflow-x:auto;border-radius:6px}
+table.gt{width:100%;border-collapse:separate;border-spacing:0;font-size:.76rem}
+table.gt th{background:transparent;color:var(--gt-light-blue);font-family:var(--fn);font-weight:600;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;padding:11px 15px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--gt-light-blue);box-shadow:0 1px 6px rgba(45,143,255,.15)}
+table.gt td{padding:10px 15px;color:var(--txt);border-bottom:1px solid rgba(21,96,246,.14);line-height:1.45;vertical-align:middle}
+table.gt th:first-child,table.gt td:first-child{padding-left:17px}
+table.gt th:last-child,table.gt td:last-child{padding-right:17px}
+table.gt tbody tr{transition:background .12s}
+table.gt tbody tr:hover td{background:rgba(45,143,255,.07)}
+table.gt tr.grp td{background:rgba(21,96,246,.1)}
+table.gt tbody tr:last-child td{border-bottom:none}
+table.gt td.num,table.gt th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-family:var(--mono)}
+table.gt td.lbl{white-space:nowrap}
+table.gt td.notes{white-space:normal;min-width:210px;max-width:290px;color:var(--lbl);font-size:.73rem;line-height:1.4}
+.strong{font-weight:600;color:#fff}
+
+/* ---- badges (mapped from light classes) ---- */
+.badge{display:inline-block;font-size:.6rem;font-weight:600;padding:3px 8px;border-radius:3px;white-space:nowrap;text-transform:uppercase;letter-spacing:.07em;border:1px solid transparent}
+.b-red{background:rgba(255,51,134,.13);color:var(--gt-pink);border-color:rgba(255,51,134,.5);box-shadow:0 0 8px rgba(255,51,134,.25)}
+.b-amb{background:rgba(248,165,21,.12);color:var(--gt-yellow);border-color:rgba(248,165,21,.45)}
+.b-grn{background:rgba(52,209,136,.12);color:var(--gt-green);border-color:rgba(52,209,136,.45)}
+.b-blue{background:rgba(45,143,255,.12);color:var(--gt-light-blue);border-color:rgba(45,143,255,.45)}
+.b-gray{background:rgba(64,68,120,.3);color:var(--lbl);border-color:rgba(64,68,120,.6)}
+
+/* ---- WoW callouts ---- */
+.callo-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0 16px}
+.callo{background:var(--cd-panel);border:1px solid var(--line);border-left:3px solid var(--gt-light-blue);border-radius:6px;padding:13px 15px;transition:box-shadow .15s}
+.callo:hover{box-shadow:0 0 14px rgba(45,143,255,.2)}
+.co-top{font-size:.72rem;font-weight:700;font-family:var(--mono)}
+.co-val{font-family:var(--fn);font-size:1.8rem;font-weight:700;color:#fff;line-height:1.05;margin-top:3px;text-shadow:0 0 10px rgba(200,212,240,.3)}
+.co-lbl{font-size:.61rem;color:var(--sub);text-transform:uppercase;letter-spacing:.08em;margin-top:3px}
+.co-wow{color:var(--gt-light-blue);font-weight:700}
+.d-good{color:var(--gt-green);font-weight:700}.d-bad{color:var(--gt-pink);font-weight:700}.d-flat{color:var(--lbl);font-weight:600}
+
+/* ---- glossary ---- */
+.gl-row{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px solid rgba(21,96,246,.14)}
+.gl-row:last-child{border-bottom:none}
+.gl-def{font-size:.76rem;color:var(--txt);line-height:1.5}
+
+/* ---- analysis ---- */
+.anrow{background:var(--cd-panel);border:1px solid var(--line);border-left:3px solid var(--gt-light-blue);border-radius:6px;padding:13px 16px;margin-bottom:11px}
+.an-basis{border-left-color:var(--gt-blue);background:rgba(21,96,246,.07)}
+.an-warn{border-left-color:var(--gt-pink);background:rgba(255,51,134,.06);box-shadow:0 0 12px rgba(255,51,134,.1)}
+.an-info{border-left-color:var(--gt-light-blue)}
+.an-h{font-family:var(--fn);font-weight:600;font-size:.8rem;color:var(--gt-light-blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;text-shadow:0 0 6px rgba(45,143,255,.4)}
+.an-b{font-size:.79rem;color:var(--txt);line-height:1.6}
+
+.ch{position:relative}
+.muted{color:var(--lbl);font-size:.78rem;padding:8px 2px}
+.sub{font-size:.74rem;color:var(--sub);margin:2px 0 12px}
+.sub strong{color:var(--txt)}
+.search{width:100%;max-width:320px;padding:8px 12px;background:var(--cd-panel-deep);border:1px solid var(--line);border-radius:5px;font-size:.78rem;font-family:var(--fb);color:var(--txt);margin-bottom:12px}
+.search::placeholder{color:var(--mut)}
+.search:focus{outline:none;border-color:var(--gt-light-blue);box-shadow:0 0 10px rgba(45,143,255,.25)}
+
+/* ---- footer / confidentiality ---- */
+.conf{background:var(--cd-panel-deep);padding:18px 26px;border-top:1px solid var(--line);position:relative;z-index:2}
+.conf-inner{max-width:1180px;margin:0 auto}
+.ctitle{font-family:var(--fn);font-size:.62rem;font-weight:700;color:var(--gt-light-blue);text-transform:uppercase;letter-spacing:.14em;margin-bottom:5px;text-shadow:0 0 6px rgba(45,143,255,.5)}
+.ctext{font-size:.71rem;color:var(--sub);line-height:1.75;max-width:780px}
+footer{text-align:center;padding:12px;background:var(--cd-canvas);border-top:1px solid var(--line);font-family:var(--mono);font-size:.64rem;color:var(--sub);letter-spacing:.06em;position:relative;z-index:2}
+
+/* ---- hover tooltips ---- */
+[data-tip]{cursor:help}
+.tipbox{position:fixed;z-index:10000;max-width:290px;background:#070f2e;color:#E8EEFB;font-family:"Inter",sans-serif;font-size:.72rem;line-height:1.5;padding:9px 12px;border-radius:6px;border:1px solid #2D8FFF;box-shadow:0 6px 24px rgba(5,12,38,.5);pointer-events:none;opacity:0;transition:opacity .12s}
+.tipbox.show{opacity:1}
+.tip-i{display:inline-block;width:13px;height:13px;line-height:13px;text-align:center;border-radius:50%;background:rgba(45,143,255,.25);color:var(--gt-light-blue);font-size:.56rem;fo</style>
+<script>(function(){try{var cy=document.getElementById('theme-cyber'),li=document.getElementById('theme-light');var p=null;try{p=localStorage.getItem('cuTheme')}catch(e){}var cyber=(p==='cyber');cy.sheet.disabled=!cyber;li.sheet.disabled=cyber;}catch(e){}})();</script>
+<style id="theme-base">[data-tip]{cursor:help}.tipbox{position:fixed;z-index:10000;max-width:290px;background:#070f2e;color:#E8EEFB;font-family:"Inter",sans-serif;font-size:.72rem;line-height:1.5;padding:9px 12px;border-radius:6px;border:1px solid #2D8FFF;box-shadow:0 6px 24px rgba(5,12,38,.5);pointer-events:none;opacity:0;transition:opacity .12s}.tipbox.show{opacity:1}</style>
+</head><body>
+<div class="topbar">
+  <div><svg xmlns="http://www.w3.org/2000/svg" width="220" height="26" viewBox="0 0 729.961 86.932"> <g id="logofull-white" transform="translate(33.389 1.252)"> <g id="goteam-cares-logo" transform="translate(99.327 4.652)"> <g id="Group_3801" data-name="Group 3801" transform="translate(0 0)"> <g id="Group_3650" data-name="Group 3650"> <g id="goteam-logo_mono-dark_" data-name="goteam-logo (mono-dark)"> <g id="Group_15" data-name="Group 15"> <path id="Path_9" data-name="Path 9" d="M55.6,51.316A20.618,20.618,0,1,1,63.63,49.7,20.618,20.618,0,0,1,55.6,51.316m0-32.675A12.051,12.051,0,1,0,67.652,30.692,12.051,12.051,0,0,0,55.6,18.641" transform="translate(10.14 4.537)" fill="#fff"/> <path id="Path_10" data-name="Path 10" d="M90.532,16.279V31.585a5.786,5.786,0,0,0,6.6,6.57h3.84l-7.76,7.565c-8.742,0-11.184-4.816-11.184-13.491V16.279H73.812V8.618H82.03V.868l8.5-8.32V8.618h9.718v7.661Z" transform="translate(13.852 7.452)" fill="#fff"/> <path id="Path_11" data-name="Path 11" d="M127.951,29.227a30.793,30.793,0,0,1-.214,3.578H99.186a10.349,10.349,0,0,0,10.941,8.88,8.451,8.451,0,0,0,8.89-5.366h8.458c-1.306,7.875-8.422,13.03-17.558,13.03a19.085,19.085,0,0,1-19.27-19.52,18.944,18.944,0,0,1,19.142-19.2,18.032,18.032,0,0,1,18.163,18.6Zm-9.222-3.648a8.842,8.842,0,0,0-9.373-7.245,9.629,9.629,0,0,0-9.971,7.245Z" transform="translate(25.479 4.686)" fill="#fff"/> <path id="Path_12" data-name="Path 12" d="M161.623,11.389V48.6h-8.5v-4.3a17.827,17.827,0,0,1-12.762,5.062,18.614,18.614,0,0,1-18.2-19.379,18.589,18.589,0,0,1,18.2-19.347,17.843,17.843,0,0,1,12.762,5.059v-4.3Zm-8.5,18.586a11.04,11.04,0,0,0-11.354-11.254,11.272,11.272,0,0,0,0,22.544,11.05,11.05,0,0,0,11.354-11.29" transform="translate(34.702 4.681)" fill="#fff"/> <path id="Path_13" data-name="Path 13" d="M214.4,25.886v22.72H205.86V27.767c0-5.552-3.072-8.986-8.067-8.986a8.128,8.128,0,0,0-8.32,8.986V48.615h-8.5V27.767c0-5.584-3.114-8.982-8.163-8.982a8.067,8.067,0,0,0-8.24,8.982V48.615h-8.5v-37.2h8.5v4.042a13.677,13.677,0,0,1,10.848-4.8A12.246,12.246,0,0,1,187.3,17.306a13.354,13.354,0,0,1,11.914-6.653,14.326,14.326,0,0,1,15.2,15.235" transform="translate(43.691 4.658)" fill="#fff"/> <path id="Path_14" data-name="Path 14" d="M20.625,51.328a20.624,20.624,0,1,1,0-41.248V19.1a11.4,11.4,0,1,0,11.6,11.6h9.024A20.624,20.624,0,0,1,20.625,51.328" transform="translate(-0.001 4.525)" fill="#fff"/> <path id="Path_15" data-name="Path 15" d="M35.472,25.549H26.448V19.1H20V10.08H35.469Z" transform="translate(5.776 4.525)" fill="#fff"/> <path id="Path_16" data-name="Path 16" d="M19.964,66.03A20.5,20.5,0,0,1,5.381,59.989,20.8,20.8,0,0,1,2.287,56.05l6.854-6.691A11.552,11.552,0,0,0,31.567,45.4v-19l.32-.32h8.694V45.419A20.623,20.623,0,0,1,19.961,66.04" transform="translate(0.657 9.156)" fill="#fff"/> </g> </g> </g> </g> </g> <path id="Path_3017" data-name="Path 3017" d="M4.526,28.8l4.48-12.621h17.6L31.076,28.8h4.01L19.844-13.091h-4.09L.5,28.8Zm5.706-16.058L17.655-8.121h.285l7.424,20.864Zm49.5-8.467A10.2,10.2,0,0,0,49.1-3.046c-6.342,0-10.944,3.619-10.944,8.8,0,4.214,2.56,7.078,8.019,8.387l5.12,1.229c3.456.819,5.12,2.6,5.12,5.12,0,3.274-3.13,5.706-7.955,5.706A7.162,7.162,0,0,1,40.6,20.525l-3.5.858c1.114,5.229,5.264,8.058,11.421,8.058,6.912,0,11.658-3.8,11.658-9.142,0-4.192-2.64-7-7.894-8.285L47.54,10.861c-3.907-.982-5.728-2.56-5.728-5.277,0-3.2,3.046-5.421,7.283-5.421A7.04,7.04,0,0,1,56.4,5.216Zm26.656,0A10.2,10.2,0,0,0,75.754-3.046c-6.342,0-10.944,3.619-10.944,8.8,0,4.214,2.56,7.078,8.019,8.387l5.12,1.229c3.456.819,5.12,2.6,5.12,5.12,0,3.274-3.13,5.706-7.955,5.706a7.162,7.162,0,0,1-7.856-5.667l-3.5.858c1.114,5.229,5.264,8.058,11.421,8.058,6.918,0,11.661-3.789,11.661-9.13,0-4.192-2.64-7-7.894-8.285L74.2,10.861c-3.907-.982-5.728-2.56-5.728-5.277,0-3.2,3.046-5.421,7.283-5.421a7.04,7.04,0,0,1,7.3,5.053ZM104.64,29.44a12.125,12.125,0,0,0,11.965-7.36l-3.466-1.114a8.752,8.752,0,0,1-8.5,5.155c-6.422,0-10.493-4.685-10.656-11.946h23.4v-1.8c0-10.493-6.483-15.424-13.3-15.424-8.141,0-13.76,6.813-13.76,16.32S95.86,29.44,104.64,29.44ZM94,10.963A10.582,10.582,0,0,1,104.087.266a9.882,9.882,0,0,1,9.571,10.7ZM134.877-2.617h-6.646v-7.526h-3.664v7.526h-4.682V.554h4.685V21.459a7.68,7.68,0,0,0,8.09,7.811,8.768,8.768,0,0,0,3.232-.554l-.778-3.293a7.475,7.475,0,0,1-2.128.285c-2.474,0-4.746-1.165-4.746-5.12V.554h6.646ZM160.8,4.275A10.2,10.2,0,0,0,150.16-3.046c-6.342,0-10.944,3.619-10.944,8.8,0,4.214,2.56,7.078,8.019,8.387l5.12,1.229c3.456.819,5.12,2.6,5.12,5.12,0,3.274-3.13,5.706-7.955,5.706a7.162,7.162,0,0,1-7.856-5.667l-3.5.858c1.114,5.229,5.264,8.058,11.421,8.058,6.912,0,11.658-3.8,11.658-9.142,0-4.192-2.64-7-7.894-8.285L148.6,10.848c-3.907-.982-5.728-2.56-5.728-5.277,0-3.2,3.046-5.421,7.283-5.421a7.04,7.04,0,0,1,7.3,5.066Zm19.626-17.366V28.8h3.6V-5.011h.32L198.483,28.8h3.478L216.1-5.011h.32V28.8h3.6V-13.091H215.6L200.4,23.4h-.368l-15.2-36.48ZM231.152,9.165A8.234,8.234,0,0,1,239.7.32a7.616,7.616,0,0,1,7.936,8.365V28.8h3.642V8.448c0-7.446-4.317-11.475-10.656-11.475a9.514,9.514,0,0,0-9.245,5.338h-.32V-2.617H227.51V28.8h3.642ZM270,41.235c7.446,0,12.966-3.642,12.966-11.619V-2.617h-3.558V3.376h-.368a10.035,10.035,0,0,0-9.654-6.422c-7.773,0-12.989,6.506-12.989,16.058,0,9.635,5.4,15.462,12.928,15.462a9.862,9.862,0,0,0,9.654-6.157h.32v7.075c0,5.85-3.744,8.57-9.306,8.57a9.725,9.725,0,0,1-9.28-4.992l-2.986,1.965A12.8,12.8,0,0,0,270,41.235Zm-.246-16.1c-6.24,0-9.7-4.992-9.7-12.192,0-7.078,3.4-12.682,9.7-12.682,6.157,0,9.6,5.318,9.6,12.682C279.366,20.538,275.807,25.139,269.753,25.139ZM302.118-2.617h-6.65v-7.526h-3.661v7.526h-4.685V.554h4.685V21.459a7.68,7.68,0,0,0,8.08,7.811,8.768,8.768,0,0,0,3.232-.554l-.778-3.293a7.475,7.475,0,0,1-2.128.285c-2.474,0-4.746-1.165-4.746-5.12V.554h6.646Z" transform="translate(393.452 29.955)" fill="#fff"/> <line id="Line_1807" data-name="Line 1807" y2="54.4" transform="translate(374.884 10.755)" fill="none" stroke="#fff" stroke-width="1"/> <g id="Group_4751" data-name="Group 4751" transform="translate(-33.389 -1.252)"> <path id="Path_2988" data-name="Path 2988" d="M-23722.3-22160l27.672-48.633s2.18-4.312,4.82-4.164,4.164,3.172,4.164,3.172l7.172,13.344-20.656,36.273Z" transform="translate(23722.297 22215.258)" fill="#fff"/> <path id="Path_2989" data-name="Path 2989" d="M-23648.2-22147.223l34.906-61.281s2-4.062,5.547-4.141,5.6,4.141,5.6,4.141l10.938,18.438a8.253,8.253,0,0,0-4.344-2.039,4.891,4.891,0,0,0-3.992,2.039l-36.648,64.352Z" transform="translate(23677.951 22212.646)" fill="#fff"/> <path id="Path_2990" data-name="Path 2990" d="M-23559.6-22111.379l16.594-28.7s1.32-2.6,3.586-2.6,3.578,2.6,3.578,2.6l12.438,22.047a11.528,11.528,0,0,0-4.687-2.883,3.986,3.986,0,0,0-3.82,1.641l-15.961,28.742Z" transform="translate(23627.391 22171.703)" fill="#fff"/> </g> </g> </svg></div>
+  <div class="topbar-right">
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle Cyber Mode"><span class="tt-cap">⚡ Cyber Mode</span><span class="tt-track"><span class="tt-thumb"></span></span></button>
+    <div class="tr"><div class="tt">Asset Data Clean-Up Progress</div><div class="td">Jun 24, 2026 · Aggregate view — no personal data</div></div>
+  </div>
+</div>
+<div class="tabbar">
+  <button class="tab active" data-p="prog">Progress</button>
+  <button class="tab" data-p="over">Overview</button>
+  <button class="tab" data-p="anal">Analysis</button>
+  <button class="tab" data-p="integ">Data Integrity</button>
+</div>
+<div class="pg">
+
+  <!-- ===== PROGRESS (G1 trend + G2 KPIs) ===== -->
+  <div class="pnl active" id="prog">
+    <div class="sh" style="background:linear-gradient(90deg,#082F9C,#2D8FFF)"><h3>🧹 Clean-Up Snapshot</h3><span class="ct">Jun 24, 2026</span></div>
+    <div class="card"><div class="cb">
+      <div class="g4"><div class="kpi" style="border-top-color:#082F9C" data-tip="Every laptop and Apple desktop tracked in this clean-up (from AMS_Raw). The denominator for all percentages."><div class="kv">2,184</div><div class="kl">Records in Scope <span class="tip-i">i</span></div><div class="ks">Laptops + Apple desktops</div></div><div class="kpi" style="border-top-color:#E24B4A" data-tip="Needs action now: any asset in Overdue Return status, an ex-TM still holding an In Use asset, In Use with no assignee, or a Pending Return held by a separated TM for 31+ days (or with no separation date on file)."><div class="kv">65</div><div class="kl">High Severity <span class="tip-i">i</span></div><div class="ks">Needs action now</div></div><div class="kpi" style="border-top-color:#EF9F27" data-tip="High + Medium combined — the active clean-up workload. Low is watchlist only and is excluded here."><div class="kv">105</div><div class="kl">Flagged (H + M) <span class="tip-i">i</span></div><div class="ks">65 High · 40 Medium</div></div><div class="kpi" style="border-top-color:#1D9E75" data-tip="No flags: record is healthy, in a final state (Sold/Disposed/Decommissioned), or transitional for 30 days or less."><div class="kv">1,937</div><div class="kl">Clean <span class="tip-i">i</span></div><div class="ks">88.7% of fleet</div></div><div class="kpi" style="border-top-color:#1560F6" data-tip="Assets currently in a team member's custody (deployed / in use)."><div class="kv">1,207</div><div class="kl">With Team Members <span class="tip-i">i</span></div><div class="ks">In active custody</div></div><div class="kpi" style="border-top-color:#E24B4A" data-tip="Assets that should have come back but haven't — Overdue + Pending Return combined."><div class="kv">66</div><div class="kl">Unreturned <span class="tip-i">i</span></div><div class="ks">Overdue + pending return</div></div><div class="kpi" style="border-top-color:#2D8FFF" data-tip="Assets physically on hand and available for redeployment."><div class="kv">284</div><div class="kl">In Asset Room <span class="tip-i">i</span></div><div class="ks">Available / on hand</div></div><div class="kpi" style="border-top-color:#F8A515" data-tip="Monitor: transitional status stale 31 to 90 days. Transitional = Defective, Under Repair, For Inspection, In Configuration, Pending Deployment, Pending Disposal, Pending Sale, Pending Return."><div class="kv">142</div><div class="kl">Low (Monitoring) <span class="tip-i">i</span></div><div class="ks">Watchlist only</div></div></div>
+    </div></div>
+
+    <div class="sh" style="background:linear-gradient(90deg,#082F9C,#2D8FFF)"><h3>📈 Week-on-Week Movement</h3><span class="ct">latest vs prior</span></div>
+    <div class="callo-wrap"><div class="callo" data-tip="Latest snapshot vs the prior week. ▼ down (good — fewer flags), ▲ up."><div class="co-top"><span class="d-good">▼ 15</span></div><div class="co-val">65</div><div class="co-lbl">High severity <span class="co-wow">WoW</span></div></div><div class="callo" data-tip="High + Medium combined for that week (Low excluded)."><div class="co-top"><span class="d-good">▼ 14</span></div><div class="co-val">105</div><div class="co-lbl">Flagged (H+M) <span class="co-wow">WoW</span></div></div><div class="callo" data-tip="Latest snapshot vs the prior week. ▼ down (good — fewer flags), ▲ up."><div class="co-top"><span class="d-good">▼ 1</span></div><div class="co-val">34</div><div class="co-lbl">Overdue returns <span class="co-wow">WoW</span></div></div><div class="callo" data-tip="Latest snapshot vs the prior week. ▼ down (good — fewer flags), ▲ up."><div class="co-top"><span class="d-good">▼ 2</span></div><div class="co-val">32</div><div class="co-lbl">Pending returns <span class="co-wow">WoW</span></div></div></div>
+    <div class="chart-card"><div class="ch" style="height:300px"><canvas id="trendChart"></canvas></div></div>
+    <div class="sh" style="background:linear-gradient(90deg,#E24B4A,#EF9F27)"><h3>🚩 Flagged Workload (High + Medium)</h3><span class="ct">H + M · by week</span></div>
+    <div class="chart-card"><div class="ch" style="height:240px"><canvas id="flaggedChart"></canvas></div></div>
+    <div class="card"><div class="cb">
+      <div class="sub">High and Medium that make up each week’s Flagged (H+M) total.</div>
+      <div class="tbl-wrap"><table class="gt"><thead><tr><th data-tip="Monday that anchors the snapshot week.">Week (Mon)<span class="tip-i">i</span></th><th class="num" data-tip="Needs action now: any asset in Overdue Return status, an ex-TM still holding an In Use asset, In Use with no assignee, or a Pending Return held by a separated TM for 31+ days (or with no separation date on file).">High<span class="tip-i">i</span></th><th class="num" data-tip="Investigate: ex-TM with an asset in any transitional status, a transitional status stale for 91+ days, or Pending Return held by a separated TM within 30 days of separation.">Medium<span class="tip-i">i</span></th><th class="num" data-tip="High + Medium combined for that week (Low excluded).">Flagged (H+M)<span class="tip-i">i</span></th></tr></thead><tbody><tr><td class="lbl">Jun 15</td><td class="num">80</td><td class="num">39</td><td class="num strong">119</td></tr><tr><td class="lbl">Jun 22</td><td class="num">65</td><td class="num">40</td><td class="num strong">105</td></tr></tbody></table></div>
+    </div></div>
+    <div class="card"><div class="cb">
+      <div class="sub">Snapshot log — append one row per cycle in the workbook's <strong>CleanupTracker</strong> table; this view reads it live.</div>
+      <div class="tbl-wrap"><table class="gt"><thead><tr><th data-tip="Which capture this row is (Prior, Baseline, or a logged week).">Snapshot<span class="tip-i">i</span></th><th data-tip="Monday that anchors the snapshot week.">Week (Mon)<span class="tip-i">i</span></th><th class="num" data-tip="Sequence number of the snapshot since the Week 0 baseline.">Wk#<span class="tip-i">i</span></th><th class="num" data-tip="Needs action now: any asset in Overdue Return status, an ex-TM still holding an In Use asset, In Use with no assignee, or a Pending Return held by a separated TM for 31+ days (or with no separation date on file).">High<span class="tip-i">i</span></th><th class="num" data-tip="Investigate: ex-TM with an asset in any transitional status, a transitional status stale for 91+ days, or Pending Return held by a separated TM within 30 days of separation.">Medium<span class="tip-i">i</span></th><th class="num" data-tip="Monitor: transitional status stale 31 to 90 days. Transitional = Defective, Under Repair, For Inspection, In Configuration, Pending Deployment, Pending Disposal, Pending Sale, Pending Return.">Low<span class="tip-i">i</span></th><th class="num" data-tip="No flags: record is healthy, in a final state (Sold/Disposed/Decommissioned), or transitional for 30 days or less.">Clean<span class="tip-i">i</span></th><th class="num" data-tip="High + Medium combined for that week (Low excluded).">Flagged (H+M)<span class="tip-i">i</span></th><th class="num" data-tip="All records in scope that week, across every severity.">Grand Total<span class="tip-i">i</span></th><th class="num" data-tip="Count of assets in Overdue Return that week.">Overdue Unret.<span class="tip-i">i</span></th><th class="num" data-tip="Count of assets in Pending Return that week.">Pending Unret.<span class="tip-i">i</span></th><th class="num" data-tip="Change in High severity versus the prior week.">High Δ WoW<span class="tip-i">i</span></th><th data-tip="Free-text note logged with that snapshot.">Notes / Actions<span class="tip-i">i</span></th></tr></thead><tbody><tr><td class="lbl strong">Prior</td><td class="lbl">Jun 15</td><td class="num">0</td><td class="num">80</td><td class="num">39</td><td class="num">133</td><td class="num">1,932</td><td class="num">119</td><td class="num">2,184</td><td class="num">35</td><td class="num">34</td><td class="num" style="color:var(--mu)">—</td><td class="notes">Pre-baseline capture (before office-location severity update)</td></tr><tr><td class="lbl strong">Baseline</td><td class="lbl">Jun 22</td><td class="num">1</td><td class="num">65</td><td class="num">40</td><td class="num">142</td><td class="num">1,937</td><td class="num">105</td><td class="num">2,184</td><td class="num">34</td><td class="num">32</td><td class="num" style="color:#1D9E75;font-weight:600">▼ 15</td><td class="notes">Initial baseline capture (after office-location severity update)</td></tr></tbody></table></div>
+    </div></div>
+  </div>
+
+  <!-- ===== OVERVIEW (G2 severity + unreturned) ===== -->
+  <div class="pnl" id="over">
+    <div class="g2">
+      <div>
+        <div class="sh" style="background:linear-gradient(90deg,#082F9C,#2D8FFF)"><h3>🚦 Records by Review Severity</h3><span class="ct">SeverityPivot</span></div>
+        <div class="chart-card"><div class="ch" style="height:240px"><canvas id="sevChart"></canvas></div></div>
+      </div>
+      <div>
+        <div class="sh" style="background:linear-gradient(90deg,#E24B4A,#EF9F27)"><h3>🔁 Unreturned by Return Stage</h3><span class="ct">UnreturnedPivot</span></div>
+        <div class="chart-card"><div class="ch" style="height:240px"><canvas id="unrChart"></canvas></div></div>
+      </div>
+    </div>
+    <div class="card"><div class="cb"><div class="tbl-wrap"><table class="gt"><thead><tr><th data-tip="Review-severity tier from the data-hygiene rules (High / Medium / Low / Clean).">Severity<span class="tip-i">i</span></th><th data-tip="The asset's lifecycle / return stage (e.g. In Use, Overdue Return, Pending Return).">Asset Status<span class="tip-i">i</span></th><th class="num" data-tip="Count of Apple desktop units.">Desktop<span class="tip-i">i</span></th><th class="num" data-tip="Count of laptop units.">Laptop<span class="tip-i">i</span></th><th class="num" data-tip="Row total across asset types.">Total<span class="tip-i">i</span></th></tr></thead><tbody><tr class="grp"><td class="lbl strong" style="border-left:3px solid #E24B4A"><span class="badge b-red" data-tip="Needs action now: any asset in Overdue Return status, an ex-TM still holding an In Use asset, In Use with no assignee, or a Pending Return held by a separated TM for 31+ days (or with no separation date on file).">High</span></td><td class="lbl strong">All High</td><td class="num strong"></td><td class="num strong">65</td><td class="num strong">65</td></tr><tr><td></td><td class="lbl">In Use</td><td class="num">—</td><td class="num">9</td><td class="num">9</td></tr><tr><td></td><td class="lbl">Pending Return</td><td class="num">—</td><td class="num">22</td><td class="num">22</td></tr><tr><td></td><td class="lbl">Overdue Return</td><td class="num">—</td><td class="num">34</td><td class="num">34</td></tr><tr class="grp"><td class="lbl strong" style="border-left:3px solid #EF9F27"><span class="badge b-amb" data-tip="Investigate: ex-TM with an asset in any transitional status, a transitional status stale for 91+ days, or Pending Return held by a separated TM within 30 days of separation.">Medium</span></td><td class="lbl strong">All Medium</td><td class="num strong">2</td><td class="num strong">38</td><td class="num strong">40</td></tr><tr><td></td><td class="lbl">Defective</td><td class="num">—</td><td class="num">23</td><td class="num">23</td></tr><tr><td></td><td class="lbl">For Inspection</td><td class="num">1</td><td class="num">5</td><td class="num">6</td></tr><tr><td></td><td class="lbl">In Configuration</td><td class="num">1</td><td class="num">3</td><td class="num">4</td></tr><tr><td></td><td class="lbl">Pending Return</td><td class="num">—</td><td class="num">3</td><td class="num">3</td></tr><tr><td></td><td class="lbl">Pending Sale</td><td class="num">—</td><td class="num">1</td><td class="num">1</td></tr><tr><td></td><td class="lbl">Under Repair</td><td class="num">—</td><td class="num">3</td><td class="num">3</td></tr><tr class="grp"><td class="lbl strong" style="border-left:3px solid #F8A515"><span class="badge b-blue" data-tip="Monitor: transitional status stale 31 to 90 days. Transitional = Defective, Under Repair, For Inspection, In Configuration, Pending Deployment, Pending Disposal, Pending Sale, Pending Return.">Low</span></td><td class="lbl strong">All Low</td><td class="num strong"></td><td class="num strong">142</td><td class="num strong">142</td></tr><tr><td></td><td class="lbl">Defective</td><td class="num">—</td><td class="num">1</td><td class="num">1</td></tr><tr><td></td><td class="lbl">For Inspection</td><td class="num">—</td><td class="num">11</td><td class="num">11</td></tr><tr><td></td><td class="lbl">In Configuration</td><td class="num">—</td><td class="num">3</td><td class="num">3</td></tr><tr><td></td><td class="lbl">Pending Deployment</td><td class="num">—</td><td class="num">9</td><td class="num">9</td></tr><tr><td></td><td class="lbl">Pending Return</td><td class="num">—</td><td class="num">4</td><td class="num">4</td></tr><tr><td></td><td class="lbl">Pending Sale</td><td class="num">—</td><td class="num">104</td><td class="num">104</td></tr><tr><td></td><td class="lbl">Under Repair</td><td class="num">—</td><td class="num">10</td><td class="num">10</td></tr><tr class="grp"><td class="lbl strong" style="border-left:3px solid #1D9E75"><span class="badge b-grn" data-tip="No flags: record is healthy, in a final state (Sold/Disposed/Decommissioned), or transitional for 30 days or less.">Clean</span></td><td class="lbl strong">All Clean</td><td class="num strong">13</td><td class="num strong">1,924</td><td class="num strong">1,937</td></tr><tr><td></td><td class="lbl">Available</td><td class="num">3</td><td class="num">183</td><td class="num">186</td></tr><tr><td></td><td class="lbl">Decommissioned</td><td class="num">—</td><td class="num">212</td><td class="num">212</td></tr><tr><td></td><td class="lbl">Disposed</td><td class="num">—</td><td class="num">220</td><td class="num">220</td></tr><tr><td></td><td class="lbl">For Inspection</td><td class="num">—</td><td class="num">47</td><td class="num">47</td></tr><tr><td></td><td class="lbl">In Configuration</td><td class="num">—</td><td class="num">13</td><td class="num">13</td></tr><tr><td></td><td class="lbl">In Use</td><td class="num">10</td><td class="num">1,200</td><td class="num">1,210</td></tr><tr><td></td><td class="lbl">Pending Deployment</td><td class="num">—</td><td class="num">6</td><td class="num">6</td></tr><tr><td></td><td class="lbl">Pending Return</td><td class="num">—</td><td class="num">3</td><td class="num">3</td></tr><tr><td></td><td class="lbl">Sold</td><td class="num">—</td><td class="num">36</td><td class="num">36</td></tr><tr><td></td><td class="lbl">Under Repair</td><td class="num">—</td><td class="num">2</td><td class="num">2</td></tr><tr><td></td><td class="lbl">For IT Configuration</td><td class="num">—</td><td class="num">2</td><td class="num">2</td></tr></tbody></table></div></div></div>
+    <div class="g2">
+      <div class="card"><div class="cb">
+        <div class="sub"><strong>Severity glossary</strong></div><div class="gl-row"><span class="badge b-red" data-tip="Needs action now: any asset in Overdue Return status, an ex-TM still holding an In Use asset, In Use with no assignee, or a Pending Return held by a separated TM for 31+ days (or with no separation date on file).">High</span><div class="gl-def">Needs action now: any asset in Overdue Return status, an ex-TM still holding an In Use asset, In Use with no assignee, or a Pending Return held by a separated TM for 31+ days (or with no separation date on file).</div></div><div class="gl-row"><span class="badge b-amb" data-tip="Investigate: ex-TM with an asset in any transitional status, a transitional status stale for 91+ days, or Pending Return held by a separated TM within 30 days of separation.">Medium</span><div class="gl-def">Investigate: ex-TM with an asset in any transitional status, a transitional status stale for 91+ days, or Pending Return held by a separated TM within 30 days of separation.</div></div><div class="gl-row"><span class="badge b-blue" data-tip="Monitor: transitional status stale 31 to 90 days. Transitional = Defective, Under Repair, For Inspection, In Configuration, Pending Deployment, Pending Disposal, Pending Sale, Pending Return.">Low</span><div class="gl-def">Monitor: transitional status stale 31 to 90 days. Transitional = Defective, Under Repair, For Inspection, In Configuration, Pending Deployment, Pending Disposal, Pending Sale, Pending Return.</div></div><div class="gl-row"><span class="badge b-grn" data-tip="No flags: record is healthy, in a final state (Sold/Disposed/Decommissioned), or transitional for 30 days or less.">Clean</span><div class="gl-def">No flags: record is healthy, in a final state (Sold/Disposed/Decommissioned), or transitional for 30 days or less.</div></div>
+      </div></div>
+      <div class="card"><div class="cb">
+        <div class="sub"><strong>Unreturned breakdown</strong> — Overdue → escalate to HR + Payroll; Pending → watchlist.</div>
+        <div class="tbl-wrap"><table class="gt"><thead><tr><th data-tip="Return stage (Overdue / Pending) broken down by who holds the asset.">Return Stage / Holder<span class="tip-i">i</span></th><th class="num" data-tip="Number of unreturned assets in this group.">Count<span class="tip-i">i</span></th></tr></thead><tbody><tr class="grp"><td class="lbl"><span class="badge b-red" data-tip="Past the return SLA — escalate to HR (People &amp; Culture) and confirm with Payroll whether non-return was settled at final pay.">Overdue Return</span></td><td class="num strong">34</td></tr><tr><td class="lbl" style="padding-left:26px"><span class="badge b-amb" style="font-size:.58rem" data-tip="Still assigned to a currently active team member.">2a. Held by Active TM</span></td><td class="num">1</td></tr><tr><td class="lbl" style="padding-left:26px"><span class="badge b-red" style="font-size:.58rem" data-tip="Held by someone who has already left — highest recovery risk.">2b. Held by Separated TM</span></td><td class="num">33</td></tr><tr class="grp"><td class="lbl"><span class="badge b-amb" data-tip="Flagged for return but not yet overdue — keep on the watchlist before it ages into Overdue.">Pending Return</span></td><td class="num strong">32</td></tr><tr><td class="lbl" style="padding-left:26px"><span class="badge b-amb" style="font-size:.58rem" data-tip="Still assigned to a currently active team member.">2a. Held by Active TM</span></td><td class="num">7</td></tr><tr><td class="lbl" style="padding-left:26px"><span class="badge b-red" style="font-size:.58rem" data-tip="Held by someone who has already left — highest recovery risk.">2b. Held by Separated TM</span></td><td class="num">25</td></tr></tbody></table></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ===== ANALYSIS (G3) ===== -->
+  <div class="pnl" id="anal">
+    <div class="sh" style="background:linear-gradient(90deg,#534AB7,#2D8FFF)"><h3>🧠 Analysis & Recommendations</h3><span class="ct">read basis first</span></div>
+    <div class="sub">Narrative read of the clean-up data. Movement is a prompt to verify (genuine resolution, reclassification, or newly surfaced records) before drawing conclusions.</div>
+    <div class="anrow an-basis"><div class="an-h">G3.7 — Analytical Basis (read first)</div><div class="an-b">Unreturned items, especially Overdue Return, are inherently hard to trace and require multilayer verification across AMS, NinjaOne, custodian, HR and Payroll records. Long-aged or missing records often reflect incomplete recording by earlier points of contact rather than confirmed loss. The severity and unreturned indicators on this tab were purpose-built to surface these risk items systematically, so a high or persistent count is the detection working as intended, not a failure of the current process. Read movement as a prompt to verify (genuine resolution, reclassification, or newly surfaced records) before drawing conclusions.</div></div><div class="anrow an-info"><div class="an-h">G3.1 — Week-on-Week Movement (latest week vs prior)</div><div class="an-b">Week starting Jun 22 vs Jun 15, 2026. High moved from 80 to 65 and Flagged (H+M) from 119 to 105; Overdue eased 35 to 34 and Pending 34 to 32, while Low rose 133 to 142 and Grand Total held at 2,184. Part of this is movement between tiers rather than net resolution, so treat the week as directional and verify which High items genuinely cleared (including the office-location rule). One week sets a baseline to measure against; the signal firms up with more weeks.</div></div><div class="anrow an-info"><div class="an-h">G3.2 — Journey-to-Date (since Week 0 baseline)</div><div class="an-b">Since the Week 0 baseline (week of Jun 15, 2026), the journey is still one week old, so the cumulative picture currently equals the week-on-week read: High 80 to 65, Flagged (H+M) 119 to 105, Overdue 35 to 34, Pending 34 to 32, Clean 1,932 to 1,937. As more weeks are logged, this section tracks the overall trajectory from baseline to present and shows whether early gains hold or reverse. Net direction so far is constructive but unconfirmed.</div></div><div class="anrow an-warn"><div class="an-h">G3.3 — Overdue Return — Escalate to HR &amp; clarify with Payroll</div><div class="an-b">34 in Overdue Return (33 held by separated TMs, 1 active), broadly flat from 35. These are the hardest records to close: long aging (several beyond 1,400 days, for example [asset tag] area, with the oldest at 1,493 days) reflects historic recording gaps as much as physical loss, which is exactly what these indicators are built to surface. Action: escalate the separated-holder list to HR (People &amp; Culture) for clarification and confirm with Payroll whether non-return was settled at final pay. Expect multilayer verification per case (AMS, NinjaOne, custodian, HR and Payroll) before any item is closed or written off.</div></div><div class="anrow an-info"><div class="an-h">G3.4 — Pending Return — Watchlist</div><div class="an-b">32 in Pending Return (25 separated, 7 active). The separated-holder cases warrant the most attention, since they are most likely to age into Overdue without follow-up. Action: keep on watchlist, prioritise the separated subset for confirmation now, and move any verified non-returns into the Overdue path. Treat Pending as provisional until each holder's status is confirmed.</div></div><div class="anrow an-warn"><div class="an-h">G3.5 — High Severity — For Review</div><div class="an-b">65 at High. A one-week dip is encouraging but not yet proof of remediation: confirm each cleared item was genuinely resolved (returned, reconciled, or correctly reclassified). Drivers remain Overdue Returns, separated TMs holding In Use assets, and In Use with no assignee. High will not fall durably while unreturned stays elevated, so the unreturned escalation work is the main lever here. Work the PT_Flagged High rows top down and record the disposition of each item.</div></div><div class="anrow an-info"><div class="an-h">G3.6 — Disclaimer</div><div class="an-b">As of the week of Monday Jun 22, 2026, from the latest pivot refresh. Figures are subject to reconciliation against AMS, NinjaOne and Payroll, and week-on-week movement firms up as more weeks are logged. Prepared by the Asset Management Team.</div></div>
+  </div>
+
+  <!-- ===== DATA INTEGRITY (G4) ===== -->
+  <div class="pnl" id="integ">
+    <div class="sh" style="background:linear-gradient(90deg,#0F6E56,#1D9E75)"><h3>🔍 Traceability Gaps</h3><span class="ct">live from AMS_Raw</span></div>
+    <div class="g2">
+      <div class="card"><div class="cb">
+        <div class="sub">Missing-field counts used to target which records to clean. Values recalc automatically in the workbook.</div>
+        <div class="tbl-wrap"><table class="gt"><thead><tr><th data-tip="A missing field in AMS_Raw that weakens traceability for a record.">Traceability Gap<span class="tip-i">i</span></th><th class="num" data-tip="How many records are missing this field. Lower is better; 'clear' means none.">Records<span class="tip-i">i</span></th></tr></thead><tbody><tr><td class="lbl" data-tip="No internal asset tag — the record can't be matched to inventory.">Missing Asset Tag <span class="tip-i" style="background:rgba(8,47,156,.12);color:var(--bd)">i</span></td><td class="num"><span class="badge b-grn">clear</span></td></tr><tr><td class="lbl" data-tip="No manufacturer serial recorded — the device can't be uniquely traced. Top fix.">Missing Asset Serial <span class="tip-i" style="background:rgba(8,47,156,.12);color:var(--bd)">i</span></td><td class="num"><span class="badge b-red">12</span></td></tr><tr><td class="lbl" data-tip="An In-Use asset with no employee number — custody can't be confirmed.">Missing Employee No (In Use) <span class="tip-i" style="background:rgba(8,47,156,.12);color:var(--bd)">i</span></td><td class="num"><span class="badge b-red">11</span></td></tr><tr><td class="lbl" data-tip="An In-Use asset with no assignee name — ownership is unclear.">Missing Assigned To (In Use) <span class="tip-i" style="background:rgba(8,47,156,.12);color:var(--bd)">i</span></td><td class="num"><span class="badge b-red">11</span></td></tr><tr><td class="lbl" data-tip="No client recorded — billing and allocation can't be attributed.">Missing Client <span class="tip-i" style="background:rgba(8,47,156,.12);color:var(--bd)">i</span></td><td class="num"><span class="badge b-red">11</span></td></tr><tr><td class="lbl" data-tip="No depreciation status — financial value can't be assessed.">Missing Depreciation Status <span class="tip-i" style="background:rgba(8,47,156,.12);color:var(--bd)">i</span></td><td class="num"><span class="badge b-grn">clear</span></td></tr><tr><td class="lbl" data-tip="Records missing this field in AMS_Raw.">Helper Coverage Gap (status rows missing severity) <span class="tip-i" style="background:rgba(8,47,156,.12);color:var(--bd)">i</span></td><td class="num"><span class="badge b-grn">clear</span></td></tr><tr><td class="lbl" data-tip="Records missing this field in AMS_Raw.">Helper Coverage Gap (rows missing Fleet Classification) <span class="tip-i" style="background:rgba(8,47,156,.12);color:var(--bd)">i</span></td><td class="num"><span class="badge b-grn">clear</span></td></tr></tbody></table></div>
+      </div></div>
+      <div class="chart-card"><div class="ch" style="height:260px"><canvas id="gapChart"></canvas></div></div>
+    </div>
+  </div>
+
+</div>
+<div class="conf"><div class="conf-inner">
+  <div class="ctitle">Confidentiality</div>
+  <div class="ctext">Source: AMS_Raw (Laptops + Apple Desktops only). Figures are subject to reconciliation against AMS, NinjaOne and Payroll; week-on-week movement firms up as more weeks are logged. Aggregate figures only — no team-member names or serial numbers. Prepared by the GoTeam Asset Management Team.</div>
+</div></div>
+<footer>GoTeam · Asset Data Clean-Up Progress Dashboard · Generated Jun 24, 2026</footer>
+<script>
+var DATA={"weeks": ["Jun 15", "Jun 22"], "series": [{"label": "High", "color": "#E24B4A", "data": [80, 65]}, {"label": "Medium", "color": "#EF9F27", "data": [39, 40]}, {"label": "Low", "color": "#F8A515", "data": [133, 142]}], "sev": {"labels": ["High", "Medium", "Low", "Clean"], "data": [65, 40, 142, 1937], "colors": ["#E24B4A", "#EF9F27", "#EAB308", "#34D188"]}, "unr": {"labels": ["Overdue Return", "Pending Return"], "data": [34, 32], "colors": ["#E24B4A", "#EF9F27", "#9CA3AF"]}, "gap": {"labels": ["Missing Asset Serial", "Missing Employee No (In Use)", "Missing Assigned To (In Use)", "Missing Client"], "data": [12, 11, 11, 11]}, "flagged": {"weeks": ["Jun 15", "Jun 22"], "high": [80, 65], "medium": [39, 40], "total": [119, 105]}};
+var charts={};
+function activeCyber(){try{var c=document.getElementById('theme-cyber');return !!(c&&c.sheet&&!c.sheet.disabled);}catch(e){return false;}}
+function setTheme(cyber){
+  var cy=document.getElementById('theme-cyber'),li=document.getElementById('theme-light');
+  try{cy.sheet.disabled=!cyber;li.sheet.disabled=cyber;}catch(e){}
+  try{localStorage.setItem('cuTheme',cyber?'cyber':'light');}catch(e){}
+  buildCharts();
+}
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+    document.querySelectorAll('.pnl').forEach(function(x){x.classList.remove('active')});
+    t.classList.add('active');document.getElementById(t.dataset.p).classList.add('active');
+    setTimeout(buildCharts,30);
+  });
+});
+function flt(inp,id){var q=inp.value.toLowerCase();document.querySelectorAll('#'+id+' tbody tr').forEach(function(tr){tr.style.display=tr.textContent.toLowerCase().indexOf(q)>-1?'':'none';});}
+function buildCharts(){
+  if(!window.Chart)return;
+  var cyber=activeCyber();
+  var grid=cyber?'rgba(45,143,255,.12)':'rgba(0,0,0,.06)', seg=cyber?'#0A1535':'#ffffff';
+  Chart.defaults.color=cyber?'#A6B0D8':'#3D4F5E';Chart.defaults.font.family='Inter';
+  Object.keys(charts).forEach(function(k){try{charts[k].destroy()}catch(e){}});charts={};
+  var el;
+  el=document.getElementById('trendChart');
+  if(el)charts.t=new Chart(el,{type:'line',data:{labels:DATA.weeks,datasets:DATA.series.map(function(s){return{label:s.label,data:s.data,borderColor:s.color,backgroundColor:s.color,tension:.3,borderWidth:2.5,pointRadius:3,pointHoverRadius:5,fill:false};})},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{boxWidth:12,font:{size:11}}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:grid},ticks:{precision:0}}}}});
+  el=document.getElementById('flaggedChart');
+  if(el)charts.f2=new Chart(el,{type:'line',data:{labels:DATA.flagged.weeks,datasets:[{label:'Flagged (H+M)',data:DATA.flagged.total,borderColor:'#2D8FFF',backgroundColor:'#2D8FFF',tension:.3,borderWidth:3,pointRadius:4,pointHoverRadius:6,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{boxWidth:12,font:{size:11}}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:grid},ticks:{precision:0}}}}});
+  el=document.getElementById('sevChart');
+  if(el)charts.s=new Chart(el,{type:'doughnut',data:{labels:DATA.sev.labels,datasets:[{data:DATA.sev.data,backgroundColor:DATA.sev.colors,borderWidth:2,borderColor:seg,hoverOffset:5}]},options:{responsive:true,maintainAspectRatio:false,cutout:'56%',plugins:{legend:{position:'right',labels:{boxWidth:11,font:{size:11}}},tooltip:{callbacks:{label:function(c){var t=c.dataset.data.reduce(function(a,b){return a+b;},0);return c.label+': '+c.parsed.toLocaleString()+' ('+(c.parsed/t*100).toFixed(1)+'%)';}}}}}});
+  el=document.getElementById('unrChart');
+  if(el)charts.u=new Chart(el,{type:'bar',data:{labels:DATA.unr.labels,datasets:[{data:DATA.unr.data,backgroundColor:DATA.unr.colors,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:grid},ticks:{precision:0}},y:{grid:{display:false}}}}});
+  el=document.getElementById('gapChart');
+  if(el&&DATA.gap.labels.length)charts.g=new Chart(el,{type:'bar',data:{labels:DATA.gap.labels,datasets:[{data:DATA.gap.data,backgroundColor:'#E24B4A',borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:grid},ticks:{precision:0}},y:{grid:{display:false},ticks:{font:{size:10}}}}}});
+}
+(function(){var box=document.createElement('div');box.className='tipbox';document.body.appendChild(box);
+function move(e){var x=e.clientX+14,y=e.clientY+18,w=box.offsetWidth,h=box.offsetHeight;if(x+w>window.innerWidth-10)x=e.clientX-w-14;if(y+h>window.innerHeight-10)y=e.clientY-h-18;box.style.left=x+'px';box.style.top=y+'px';}
+function show(e){var t=e.currentTarget.getAttribute('data-tip');if(!t)return;box.textContent=t;box.classList.add('show');move(e);}
+function hide(){box.classList.remove('show');}
+function bind(){document.querySelectorAll('[data-tip]').forEach(function(el){if(el._tb)return;el._tb=1;el.addEventListener('mouseenter',show);el.addEventListener('mousemove',move);el.addEventListener('mouseleave',hide);});}
+bind();window.addEventListener('load',bind);})();
+window.addEventListener('load',function(){
+  var b=document.getElementById('themeToggle');
+  if(b)b.addEventListener('click',function(){setTheme(!activeCyber());});
+  setTimeout(buildCharts,60);
+});
+</script>
+</body></html>
